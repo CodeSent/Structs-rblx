@@ -3,7 +3,7 @@
 an implementation of C like structs on luau for roblox studio using buffers. this module helps to make a defined structure type with set fields and their data types, which is reusable and lets you compress data into a byte string.
 
 #### Usage
-to make your own struct, firstly Import the struct module into your script. Then you can create a usable struct like this.
+to make your own struct, firstly get the module from the rbxm file or by cloning the project, then import the struct module into your script. Then you can create a usable struct like this.
 ```lua
   local struct = require(game.ReplicatedStorage.Modules.struct)
 
