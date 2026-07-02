@@ -44,6 +44,8 @@ the module contains pre-defined type rules for the most common luau datatypes (`
 
 also, if you noticed above that, the `name` key has a function called `getStringType()` with 10 as it's parameter. its to create a string data type with a set Size as, in a struct everything has a set size.
 
+#### creating a struct
+
 After we have made our own structRule we can pass it to `struct.new()` to make a new struct object along with some initial values for the defined fields,we can now access the fields we have defined by indexing from the object like any other table, however whatever key you are indexing must be defined in the struct's rule otherwise it will assert. Also you cant add 2 diffrent fields with the same name, the field defined last will overwrite the previous fields.
 
 the struct object has no build in or reserved indecies, it works purely through operators defined in it's metatable, key features include:
