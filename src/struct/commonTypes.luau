@@ -1,7 +1,8 @@
 export type TypeRule = {
-		_size : number,
-		_serialize : (buffer, number, any) -> nil,
-		_deserialize : (buffer, number) -> any,
+	_size : number,
+	_luautype: string,
+	_serialize : (buffer, number, any) -> nil,
+	_deserialize : (buffer, number) -> any,
 }
 
 
@@ -10,6 +11,7 @@ local module = {
 	-- Signed
 	INT8 = {
 		_size = 1,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,-127,128)
 			buffer.writei8(buf,offset,val)
@@ -20,6 +22,7 @@ local module = {
 	},
 	INT16 = {
 		_size = 2,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,-32767,32768)
 			buffer.writei16(buf,offset,val)
@@ -30,6 +33,7 @@ local module = {
 	},
 	INT32 = {
 		_size = 4,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,-2147483647,2147483648)
 			buffer.writei32(buf,offset,val)
@@ -40,6 +44,7 @@ local module = {
 	},
 	INT64 = {
 		_size = 8,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,-9223372036854775807,9223372036854775808)
 			buffer.writei64(buf,offset,val)
@@ -51,6 +56,7 @@ local module = {
 	--unsigned
 	UINT8 = {
 		_size = 1,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,0,255)
 			buffer.writeu8(buf,offset,val)
@@ -61,6 +67,7 @@ local module = {
 	},
 	UINT16 = {
 		_size = 2,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,0,65535)
 			buffer.writeu16(buf,offset,val)
@@ -71,6 +78,7 @@ local module = {
 	},
 	UINT32 = {
 		_size = 4,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,0,4294967295)
 			buffer.writeu32(buf,offset,val)
@@ -81,6 +89,7 @@ local module = {
 	},
 	UINT64 = {
 		_size = 8,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			local val = math.clamp(value,0,18446744073709551615)
 			buffer.writeu64(buf,offset,val)
@@ -92,6 +101,7 @@ local module = {
 	--float
 	FLOAT32 = {
 		_size = 4,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			buffer.writef32(buf,offset,value)
 		end,
@@ -101,6 +111,7 @@ local module = {
 	},
 	FLOAT64 = {
 		_size = 8,
+		_luautype = "number",
 		_serialize = function(buf: buffer,offset, value)
 			buffer.writef64(buf,offset,value)
 		end,
@@ -112,6 +123,7 @@ local module = {
 	-- Char
 	CHAR = {
 		_size = 1,
+		_luautype = "string",
 		_serialize = function(buf: buffer,offset, value)
 			buffer.writeu8(buf,offset,string.byte(value))
 		end,
@@ -123,6 +135,7 @@ local module = {
 	getStringType  = function(Size)
 		return {
 			_size = Size+1,
+			_luautype = "string",
 			_serialize = function(buf: buffer,offset, value)
 				local str = string.sub(value,1,Size) .. string.char(0)
 				local strLen = #str
@@ -140,6 +153,7 @@ local module = {
 -- Studio Specific
 module.VECTOR2 = {
 	_size = 16,
+	_luautype = "Vector2",
 	_serialize = function(buf: buffer,offset, value)
 		buffer.writef64(buf,offset,value.X)
 		buffer.writef64(buf,offset+8,value.Y)
@@ -150,6 +164,7 @@ module.VECTOR2 = {
 }
 module.VECTOR3 = {
 	_size = 24,
+	_luautype = "Vector3",
 	_serialize = function(buf: buffer,offset, value)
 		buffer.writef64(buf,offset,value.X)
 		buffer.writef64(buf,offset+8,value.Y)
