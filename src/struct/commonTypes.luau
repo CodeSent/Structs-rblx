@@ -139,24 +139,24 @@ local module = {
 
 -- Studio Specific
 module.VECTOR2 = {
-	_size = 8,
+	_size = 16,
 	_serialize = function(buf: buffer,offset, value)
-		buffer.writef32(buf,offset,value.X)
-		buffer.writef32(buf,offset+4,value.Y)
+		buffer.writef64(buf,offset,value.X)
+		buffer.writef64(buf,offset+8,value.Y)
 	end,
 	_deserialize = function(buf : buffer,offset)
-		return Vector2.new(buffer.readf32(buf,offset),buffer.readf32(buf,offset+4))
+		return Vector2.new(buffer.readf32(buf,offset),buffer.readf32(buf,offset+8))
 	end,
 }
 module.VECTOR3 = {
-	_size = 12,
+	_size = 24,
 	_serialize = function(buf: buffer,offset, value)
-		buffer.writef32(buf,offset,value.X)
-		buffer.writef32(buf,offset+4,value.Y)
-		buffer.writef32(buf,offset+8,value.Z)
+		buffer.writef64(buf,offset,value.X)
+		buffer.writef64(buf,offset+8,value.Y)
+		buffer.writef64(buf,offset+16,value.Z)
 	end,
 	_deserialize = function(buf : buffer,offset)
-		return Vector3.new(buffer.readf32(buf,offset),buffer.readf32(buf,offset+4),buffer.readf32(buf,offset+8))
+		return Vector3.new(buffer.readf64(buf,offset),buffer.readf64(buf,offset+8),buffer.readf64(buf,offset+16))
 	end,
 }
 

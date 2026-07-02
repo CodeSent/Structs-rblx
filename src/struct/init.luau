@@ -52,6 +52,7 @@ module.new = function(structure : StructRule)
 		_structHolders[_holder]._fields[struct_field[1]] = fieldData
 	end
 	_structHolders[_holder]._buffer = buffer.create(_structHolders[_holder]._size)
+	buffer.fill(_structHolders[_holder]._buffer,0,0,_structHolders[_holder]._size)
 	_holder = setmetatable(_holder,_meta)
 	return _holder
 end
