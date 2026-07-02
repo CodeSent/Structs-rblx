@@ -7,7 +7,13 @@ local structRule = {
 	{"gravity", struct.Types.FLOAT64},
 }
 
-local newStruct = struct.new(structRule)
+local newStruct = struct.new(structRule, {
+	name = "CodeSent",
+	Position = Vector3.new(0,0,0),
+	Level = 10,
+})
+
+
 newStruct.name = "Testbot379"
 newStruct.Level = 70
 newStruct.Position = Vector3.new(10,10,10)

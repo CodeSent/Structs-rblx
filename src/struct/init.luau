@@ -40,8 +40,9 @@ export type StructRule = {{string | commonTypes.TypeRule}}
 --[=[ Create a struct object, from a defined struct rule
 
 	 @param structure  a table where the fields of the struct is defined, it's a array of tables, where the first value is the name of the field, and the second value is a special Type object, you can find most predefined special Types for the most common studio objects in <code>.Types</code> of the same class
+	 @param data pre-initialized data to add to the struct on construction.
 --]=]--
-module.new = function(structure : StructRule)
+module.new = function(structure : StructRule,initdata )
 	local _holder = {}
 	_structHolders[_holder] = {}
 	_structHolders[_holder]._size = 0
@@ -57,6 +58,11 @@ module.new = function(structure : StructRule)
 	_structHolders[_holder]._buffer = buffer.create(_structHolders[_holder]._size)
 	buffer.fill(_structHolders[_holder]._buffer,0,0,_structHolders[_holder]._size)
 	_holder = setmetatable(_holder,_meta)
+	if initdata then
+		for key,value in initdata do
+			_holder[key] = value
+		end
+	end
 	return _holder
 end
 

@@ -5,7 +5,7 @@ an implementation of C like structs on luau for roblox studio using buffers. thi
 #### Usage
 to make your own struct, firstly get the module from the rbxm file or by cloning the project, then import the struct module into your script. Then you can create a usable struct like this.
 ```lua
-  local struct = require(game.ReplicatedStorage.Modules.struct)
+local struct = require(game.ReplicatedStorage.Modules.struct)
 
 local structRule = {
 	{"name", struct.Types.getStringType(10)},
@@ -14,7 +14,13 @@ local structRule = {
 	{"gravity", struct.Types.FLOAT64},
 }
 
-local newStruct = struct.new(structRule)
+local newStruct = struct.new(structRule, {
+	name = "CodeSent",
+	Position = Vector3.new(0,0,0),
+	Level = 10,
+})
+
+
 newStruct.name = "Testbot379"
 newStruct.Level = 70
 newStruct.Position = Vector3.new(10,10,10)
@@ -38,7 +44,7 @@ the module contains pre-defined type rules for the most common luau datatypes (`
 
 also, if you noticed above that, the `name` key has a function called `getStringType()` with 10 as it's parameter. its to create a string data type with a set Size as, in a struct everything has a set size.
 
-After we have made our own structRule we can pass it to `struct.new()` to make a new struct object, where we can put data inside the fields we have defined for it by indexing it like any other table, however whatever key you are indexing must be defined in the struct's rule otherwise it will assert.
+After we have made our own structRule we can pass it to `struct.new()` to make a new struct object along with some initial values for the defined fields,we can now access the fields we have defined by indexing from the object like any other table, however whatever key you are indexing must be defined in the struct's rule otherwise it will assert. Also you cant add 2 diffrent fields with the same name, the field defined last will overwrite the previous fields.
 
 the struct object has no build in or reserved indecies, it works purely through operators defined in it's metatable, key features include:
   - `newStruct["keyname"]` or `newStruct.keyname` can we used to index any existing field in the struct.
