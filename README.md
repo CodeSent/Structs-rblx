@@ -1,4 +1,4 @@
-# Struct-Luau
+# Struct-rblx
 
 an implementation of C like structs on luau for roblox studio using buffers. this module helps to make a defined structure type with set fields and their data types, which is reusable and lets you compress data into a byte string.
 
